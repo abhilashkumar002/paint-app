@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Simple Paint App</title>
+  <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
+	<style>
+		.clear_button{
+			background-color: blanchedalmond;
+			border: 1px solid black;
+			border-radius: 4px;
+			width: 70px;
+			height: 30px;
+			position: fixed;
+			right: 10px;
+			top: 3px;
+		}
+
+		.color_button{
+			border: 1px solid black;
+			border-radius: 6px;
+			width: 70px;
+			height: 30px;
+			margin: 2px;
+		}
+
+		.msg{
+			font-size: 16px;
+			font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+		}
+	</style>
+</head>
+
+<body style="background-color:aqua">
+
+	<div style="text-align:center; font-size:24px; ">
+		Simple Paint App
+	</div>
+
+	</div>
+
+  <div style="width:1350px; height:550px;">
+    <canvas id="canvas1" style="background-color: white;" width="1350px"; height="540px">
+		</canvas>
+	</div>
+	
+	<div>
+		<div  style="display:block">
+		<button id="red_color" style="background-color:red" class="color_button" onclick="getColor('red_color')">Red</button>
+		<button id="blue_color" style="background-color:blue" class="color_button" onclick="getColor('blue_color')">Blue</button>
+		<button id="green_color" style="background-color:green" class="color_button" onclick="getColor('green_color')">Green</button>
+		<button id="yellow_color" style="background-color:yellow" class="color_button" onclick="getColor('yellow_color')">Yellow</button>
+		<button id="black_color" style="background-color:black; color:white;" class="color_button" onclick="getColor('black_color')">Black</button>
+		<button id="lime_color" style="background-color:lime" class="color_button" onclick="getColor('lime_color')">Lime</button>
+		<button id="olive_color" style="background-color:olive" class="color_button" onclick="getColor('olive_color')">Olive</button>
+		<button id="silver_color" style="background-color:silver" class="color_button" onclick="getColor('silver_color')">Silver</button>
+		<button id="purple_color" style="background-color:purple" class="color_button" onclick="getColor('purple_color')">Purple</button>
+		<button id="aqua_color" style="background-color:aqua" class="color_button" onclick="getColor('aqua_color')">Aqua</button>
+		<button id="maroon_color" style="background-color:maroon; color:white;" class="color_button" onclick="getColor('maroon_color')">Maroon</button>
+		<button id="fuchsia_color" style="background-color:fuchsia" class="color_button" onclick="getColor('fuchsia_color')">Fuchsia</button>
+		<button id="gray_color" style="background-color:gray" class="color_button" onclick="getColor('gray_color')">Gray</button>
+		<button id="navy_color" style="background-color:navy; color:white;" class="color_button" onclick="getColor('navy_color')">Navy</button>
+		<button id="khaki_color" style="background-color:khaki;" class="color_button" onclick="getColor('khaki_color')">Khaki</button>
+		<button id="random_color" class="color_button" onclick="getRandomColor('random_color')">Random</button>
+		<button id="white_color" style="background-color:white;" class="color_button" onclick="getColor('white_color')">Eraser</button>
+		</div>
+
+		<button id="clear_button" class="clear_button">Clear</button>
+	</div>
+
+	<div>
+		<p id="display_message" class="msg"></p>
+	</div>
+	
+  <script>
+		
+		var  x1,x2,y1,y2;//x1=10, x2=100, y1=10, y2=100;
+		var canvasColor = "blue";
+		var colorss=["red","blue","green","yellow","black","lime","olive","silver","purple","aqua"];
+		document.getElementById("canvas1").addEventListener("mouseup",getPosy);
+		document.getElementById("canvas1").addEventListener("mousedown",getPos);
+		document.getElementById("clear_button").addEventListener("mousedown",clearCanvas);
+		document.getElementById("clear_button").addEventListener("mouseup",buttonPush);
+		document.getElementById("display_message").innerHTML = "Click on the above color button to select one color.";
+
+		function drawRect()
+		{
+		  var dx = x2-x1;
+		  var dy = y2-y1;
+          var c = document.getElementById("canvas1");
+          var ctx = c.getContext("2d");
+          //ctx.fillStyle = colorss[Math.floor(Math.random()*10)];
+					ctx.fillStyle = canvasColor;
+          ctx.fillRect(x1,y1,dx,dy);
+		}
+		function getPosy(event)
+		{
+			x2=event.clientX-this.offsetLeft;
+			y2=event.clientY-this.offsetTop;
+			drawRect();
+			//alert( "X = " + event.clientX + "and Y = " + event.clientY);
+		}
+		function getPos(event)
+		{
+			x1=event.clientX-this.offsetLeft;
+			y1=event.clientY-this.offsetTop;
+			//alert( "X = " + event.clientX + "and Y = " + event.clientY);
+		}
+
+		function clearCanvas(event)
+		{
+			document.getElementById("clear_button").style.transform = "scale(0.95, 0.95)";
+			var c = document.getElementById("canvas1");
+    	var ctx = c.getContext("2d");
+			ctx.clearRect(0, 0, 1350, 550);
+		}
+
+		function buttonPush(event)
+		{
+			document.getElementById("clear_button").style.transform = "scale(1, 1)";
+		}
+
+		function getColor(value)
+		{
+			canvasColor = document.getElementById(value).style.backgroundColor;
+		}
+
+		function getRandomColor(value)
+		{	
+
+			canvasColor = colorss[Math.floor(Math.random()*10)];
+		}
+		
+  </script>
+</body>
+
+</html>
